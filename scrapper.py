@@ -50,4 +50,4 @@ message = """
         Initializing search...
 """
 print(message)
-get_images_of('ferrari')
+get_images_of('morango')
