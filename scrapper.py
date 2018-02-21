@@ -15,9 +15,9 @@ class ImageScrapper():
         ============================================
         """
         
-        self.class_name      = class_name
-        self.quant_images    = quant_images
-        self.max_images      = 200
+        self.class_name = class_name
+        self.quant_images = quant_images
+        self.max_images = 200
         self.max_string_size = 30
         if self.quant_images > self.max_images:
             print('Maximum of images is %s' % self.max_images)
@@ -58,9 +58,9 @@ class ImageScrapper():
         ============================================
         """
         
-        url            = "https://www.google.com.br/search?q="+self.class_name+"&prmd=inv&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj3mdzbnrXZAhWQuFMKHY7DAbYQ_AUIESgB#imgrc=_"
+        url = "https://www.google.com.br/search?q="+self.class_name+"&prmd=inv&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj3mdzbnrXZAhWQuFMKHY7DAbYQ_AUIESgB#imgrc=_"
         path_webdriver = "C:\\webdrivers\\chromedriver.exe"
-        driver  = webdriver.Chrome(path_webdriver)
+        driver = webdriver.Chrome(path_webdriver)
         driver.get(url)
         
         print("Get a coffe, while I search the images for you")
@@ -72,8 +72,8 @@ class ImageScrapper():
             jump_size += 200
             time.sleep(1)
 
-        html       = driver.page_source
-        bsobj      = BeautifulSoup(html, 'html5lib')
+        html = driver.page_source
+        bsobj = BeautifulSoup(html, 'html5lib')
         image_list = bsobj.findAll('img',{'class':'rg_ic rg_i'})
 
         image_src_list = []
