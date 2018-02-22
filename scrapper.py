@@ -3,9 +3,9 @@ from urllib.request import urlretrieve
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-import time, os
+import time, os, threading
 
-class ImageScrapper():
+class ImageScrapper(threading.Thread):
 
     def __init__(self, class_name, quant_images):
         """
@@ -14,7 +14,7 @@ class ImageScrapper():
         of images to download
         ============================================
         """
-        
+        threading.Thread.__init__(self)
         self.class_name = class_name
         self.quant_images = quant_images
         self.max_images = 200
@@ -50,7 +50,7 @@ class ImageScrapper():
             
         print('%s images downloaded from the class %s check your class folder.' % (str(images_downloaded), self.class_name))
                     
-    def get_images(self):
+    def run(self):
         """
         ============================================
         receive a class name that will be used for
@@ -91,8 +91,9 @@ class ImageScrapper():
 Usage example zone
 """
 # TESTING THE DIFFERENCE BETWEEN NON HEADLESS AND HEADLESS WEBDRIVERS
-start = time.time()
-scrapper = ImageScrapper('artificial intelligence', 100)
-scrapper.get_images()
-end = time.time()
-print('scrapping takes %s seconds to run' % str(end - start))
+classes = ['ferrari', 'lamborghini', 'volkswagen']
+threads = []
+
+for classe in classes: threads.append(ImageScrapper(classe, 10))
+for thread in threads: thread.start()
+for thread in threads: thread.join()
